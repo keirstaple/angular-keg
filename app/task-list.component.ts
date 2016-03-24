@@ -3,14 +3,21 @@ import { TaskComponent } from './task.component';
 import { Task } from './task.model';
 import { EditTaskDetailsComponent } from './edit-task-details.component';
 import { NewTaskComponent } from './new-task.component';
+import { DonePipe } from './done.pipe';
 
 @Component ({
     selector: 'task-list',
     inputs: ['taskList'],
     outputs: ['onTaskSelect'],
+    pipes: [DonePipe],
     directives: [TaskComponent, EditTaskDetailsComponent, NewTaskComponent],
   template: `
-    <task-display *ngFor="#theCurrentTask of taskList"
+    <select (change)="onChange($event.target.value)" class="filter">
+      <option value="all">Show All</option>
+      <option value="done">Show Done</option>
+      <option value="notDone" selected="selected">Show Not Done</option>
+    </select>
+    <task-display *ngFor="#theCurrentTask of taskList | done: filterDone"
       (click)="taskClickedMethod(theCurrentTask)"
       [class.selected]="theCurrentTask === selectedTask"
       [task]="theCurrentTask">
@@ -25,6 +32,7 @@ export class TaskListComponent {
   public taskList: Task[];
   public onTaskSelect: EventEmitter<Task>;
   public selectedTask: Task; //use it to keep track of which task object was last clicked on
+  public filterDone: string = "notDone";
   constructor(){
     this.onTaskSelect = new EventEmitter();
   }
@@ -37,5 +45,8 @@ export class TaskListComponent {
     this.taskList.push(
       new Task(description, this.taskList.length)
     );
+  }
+  onChange(filterOption){
+    this.filterDone = filterOption;
   }
 }

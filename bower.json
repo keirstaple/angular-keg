@@ -4,7 +4,7 @@
   "main": "",
   "license": "ISC",
   "moduleType": [],
-  "homepage": "",
+  "homepage": "https://github.com/keirstaple/angular-tasklist-2",
   "ignore": [
     "**/.*",
     "node_modules",
@@ -14,5 +14,8 @@
   ],
   "dependencies": {
     "bootstrap": "^3.3.6"
-  }
+  },
+  "authors": [
+    "Keir Staple <keirstaple@comcast.net>"
+  ]
 }
