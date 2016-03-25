@@ -1,33 +1,32 @@
 import { Component, EventEmitter } from 'angular2/core';
-import { TaskListComponent } from './task-list.component';
-import { Task } from './task.model';
+import { KegListComponent } from './keg-list.component';
+import { Keg } from './keg.model';
 
 
 @Component ({
     selector: 'my-app',
-    directives: [TaskListComponent],
+    directives: [KegListComponent],
   template: `
     <div class="container">
-      <h1>To-Do List</h1>
-      <task-list
-        [taskList]="tasks"
-        (onTaskSelect)="taskWasSelected($event)">
-      </task-list>
+      <h1>Keg List</h1>
+      <keg-list
+        [kegList]="kegs"
+        (onKegSelect)="kegWasSelected($event)">
+      </keg-list>
     </div>
   `
 })
 
 export class AppComponent {
-  public tasks: Task[]; // Task[] (or Array<Task>) identifies tasks as an array of Task objects. Notice below that tasks is an array of new Task objects. Refer to tasks with this.
+  public kegs: Keg[]; // Task[] (or Array<Task>) identifies tasks as an array of Task objects. Notice below that tasks is an array of new Task objects. Refer to tasks with this.
   constructor(){
-    this.tasks = [
-      new Task('Create To-Do List app.', 0),
-      new Task('Learn Kung Fu.', 1),
-      new Task('Rewatch all the Lord of the Rings movies.', 2),
-      new Task('Do the laundry.', 3)
+    this.kegs = [
+      new Keg('dead guy ale', 'rogue ales', 5.00, 0.06, 0),
+      new Keg('mirror pond', 'deschuttes', 6.00, 0.056, 1),
+      new Keg('corona light', 'corona', 3.00, 0.05, 2)
     ];
   }
-  taskWasSelected(clickedTask: Task): void {
-    console.log('parent', clickedTask);
+  kegWasSelected(clickedKeg: Keg): void {
+    console.log('PARENT', clickedKeg);
   }
 }
